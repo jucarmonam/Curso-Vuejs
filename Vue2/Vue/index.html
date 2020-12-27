@@ -1,0 +1,57 @@
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <input type="text" v-on:input="changeTitle"> -->
+        <h1 v-once>{{ title }}</h1>
+        <p>{{ sayHello() }} - <a v-bind:href="link">Google</a></p>
+        <hr>
+        <p v-html="finishedLink"></p>
+        <input type="text" v-on:keyup.enter.space="alertMe">
+        <!-- con v-on podemos especificar un metodo que responda a una accion de teclado o mouse -->
+        <br>
+        <br>
+        <button v-on:click="increase(2, $event)">Click me</button>
+        <button v-on:click="counter++">Click me</button>
+        <!-- podemos poner codigo de JS directamente en vue -->
+        <p>{{ counter }}</p>
+        <p>{{ counter * 2 > 10 ? 'Greather than 10' : 'Smaller than 10' }}</p>
+        <br>
+        <input type="text" v-model="name">
+        <p>{{ name }}</p>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'hello world',
+                link: 'http://linkedin.com',
+                finishedLink: '<a href="http://google.com">Google</a>',
+                counter: 0,
+                name: 'Juan'
+            },
+            methods: {
+                changeTitle: function (event) {
+                    this.title = event.target.value
+                },
+                sayHello: function () {
+                    return 'Hello';
+                },
+                alertMe: function () {
+                    alert('Alert!');
+                },
+                increase: function (step, event) {
+                    this.counter += step;
+                }
+            }
+        })
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>
