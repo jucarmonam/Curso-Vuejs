@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enteredGoalValue" />
+      <button @click="addGoal">Add Goal</button>
+      <!-- the diference between v-if and v-show is that v-if really deletes the element from the dom meanwhile v-show set the style display:none -->
+      <!-- so we should use v-show when we have for example a button that changes his visibility multiple times, but in other cases that performance doesnt affect to much we use v-if -->
+      <!-- <p v-show="goals.length === 0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul v-show="goals.length > 0">
+        <li>Goal</li>
+      </ul> -->
+
+      <p v-if="goals.length === 0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul v-else>
+        <!-- <li v-for="goal in goals">{{ goal }}</li> -->
+
+        <!-- this key attribute is unique of vuejs and not from html and it help us because vue reuses dom contenct to improve the performance so with this we make sure that the content of each element is saved without matter if we delete elements and vue resuses the html  -->
+        <!-- the best form of use it it's with an Id from a databse for example -->
+        <li
+          v-for="(goal, index) in goals"
+          :key="goal"
+          @click="removeGoal(index)"
+        >
+          <p>{{ goal }} - {{ index }}</p>
+          <!-- this stop is to make that when we click in the input dont delete the li because this stops the propagation -->
+          <input type="text" @click.stop />
+        </li>
+      </ul>
+
+      <!-- <ul>
+        <li v-for="num in 10">{{ num }}</li>
+      </ul>-->
+
+      <!-- <ul>
+        <li v-for="(value,key,index) in {name: 'Max', age: 31}">
+          {{ key }} : {{ value }} - {{ index }}
+        </li>
+      </ul> -->
+    </section>
+  </body>
+</html>
